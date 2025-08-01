@@ -1,0 +1,6 @@
+framework module Translator {
+  umbrella header "Translator-umbrella.h"
+
+  export *
+  module * { export * }
+}

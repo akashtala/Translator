@@ -1,0 +1,16 @@
+PODS:
+  - Translator (0.1.0)
+
+DEPENDENCIES:
+  - Translator (from `../`)
+
+EXTERNAL SOURCES:
+  Translator:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Translator: 5dc85b26ee684a12754f7e68c31861dcdb0973ac
+
+PODFILE CHECKSUM: bd9095b5ceff380466264790408b75d79c3548cf
+
+COCOAPODS: 1.16.2
