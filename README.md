@@ -22,7 +22,7 @@ pod 'Translator'
 
 ## Author
 
-talaakash, akasht.noble@gmail.com
+Akash Tala, akashpatel54668@gmail.com
 
 ## License
 

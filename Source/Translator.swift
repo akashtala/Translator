@@ -37,11 +37,69 @@ public class Translator {
         self.client = client
     }
     
-    public func translate(_ sourceText: String, from: String = "auto", to: String = "en", success: @escaping (Translation) -> Void, failure: @escaping (TranslationError) -> Void) {
+}
+
+// MARK: Public Methods
+extension Translator {
+    public func translateToEnglish(_ sourceText: String) async throws -> Translation {
+        let translation = try await self.translate(sourceText)
+        return await MainActor.run {
+            translation
+        }
+    }
+    
+    public func translateToEnglish(_ sourceText: String, completion: @escaping (Result<Translation, TranslationError>) -> Void) {
+        Task {
+            do {
+                let translation = try await self.translate(sourceText)
+                await MainActor.run {
+                    completion(.success(translation))
+                }
+            } catch let error as TranslationError {
+                await MainActor.run {
+                    completion(.failure(error))
+                }
+            } catch {
+                await MainActor.run {
+                    completion(.failure(.invalidResponse))
+                }
+            }
+        }
+    }
+    
+    public func translate(from: String = "auto", to: String, sourceText: String) async throws -> Translation {
+        let translation = try await self.translate(sourceText, from: from, to: to)
+        return await MainActor.run {
+            translation
+        }
+    }
+    
+    public func translate(from: String, to: String, sourceText: String, completion: @escaping (Result<Translation, TranslationError>) -> Void) {
+        Task {
+            do {
+                let translation = try await self.translate(sourceText, from: from, to: to)
+                await MainActor.run {
+                    completion(.success(translation))
+                }
+            } catch let error as TranslationError {
+                await MainActor.run {
+                    completion(.failure(error))
+                }
+            } catch {
+                await MainActor.run {
+                    completion(.failure(.invalidResponse))
+                }
+            }
+        }
+    }
+}
+
+// MARK: Private Methods
+extension Translator {
+    private func translate(_ sourceText: String, from: String = "auto", to: String = "en") async throws -> Translation {
         for lang in [from, to] {
             guard languageList.contains(lang) else {
-                failure(.unsupportedLanguage(lang))
-                return
+                throw TranslationError.unsupportedLanguage(lang)
             }
         }
         
@@ -68,42 +126,37 @@ public class Translator {
         ]
         
         guard let url = components.url else {
-            failure(.parsingError)
-            return
+            throw TranslationError.parsingError
         }
         
-        Task {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                failure(.parsingError)
-                return
-            }
-            
-            guard httpResponse.statusCode == 200 else {
-                failure(.serverError(statusCode: httpResponse.statusCode, body: String(data: data, encoding: .utf8) ?? "Unknown Error"))
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                if let outerArray = json as? [Any],
-                   let translations = outerArray[0] as? [[Any]],
-                   let firstTranslation = translations.first,
-                   let translatedText = firstTranslation[0] as? String  {
-                    var inputLang = from
-                    if outerArray.count > 3 {
-                        inputLang = outerArray[2] as? String ?? from
-                    }
-                    let translation = Translation(translatedText: translatedText, sourceText: sourceText, sourceLanguage: try languageList.getLanguage(by: inputLang), targetLanguage: try languageList.getLanguage(by: to))
-                    success(translation)
-                } else {
-                    failure(.invalidResponse)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw TranslationError.parsingError
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw TranslationError.serverError(statusCode: httpResponse.statusCode, body: String(data: data, encoding: .utf8) ?? "Unknown Error")
+        }
+        
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
+            if let outerArray = json as? [Any],
+               let translations = outerArray[0] as? [[Any]],
+               let firstTranslation = translations.first,
+               let translatedText = firstTranslation[0] as? String  {
+                var inputLang = from
+                if outerArray.count > 3 {
+                    inputLang = outerArray[2] as? String ?? from
                 }
-            } catch {
-                debugPrint(error.localizedDescription)
-                failure(.invalidResponse)
+                let translation = Translation(translatedText: translatedText, sourceText: sourceText, sourceLanguage: try languageList.getLanguage(by: inputLang), targetLanguage: try languageList.getLanguage(by: to))
+                return translation
+            } else {
+                throw TranslationError.invalidResponse
             }
+        } catch {
+            debugPrint(error.localizedDescription)
+            throw TranslationError.invalidResponse
         }
     }
 }

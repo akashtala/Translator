@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,13 +16,72 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t6D-ha-390">
+                                <rect key="frame" x="32" y="140" width="338" height="34"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nGX-Jc-BPg">
+                                <rect key="frame" x="32" y="190" width="338" height="34"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Source Lang" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="26A-N3-41w">
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="34"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Destination Lang" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="010-tm-UrC">
+                                        <rect key="frame" x="173" y="0.0" width="165" height="34"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tet-Gz-t7I">
+                                <rect key="frame" x="32" y="256" width="338" height="38"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Translate">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="translateBtnTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sol-Ut-FON"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSC-sa-EVg">
+                                <rect key="frame" x="32" y="326" width="338" height="0.0"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="nGX-Jc-BPg" firstAttribute="top" secondItem="t6D-ha-390" secondAttribute="bottom" constant="16" id="37R-K0-iMY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nGX-Jc-BPg" secondAttribute="trailing" constant="16" id="6cx-6F-mqy"/>
+                            <constraint firstItem="Tet-Gz-t7I" firstAttribute="top" secondItem="nGX-Jc-BPg" secondAttribute="bottom" constant="32" id="8BM-vM-g7d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hSC-sa-EVg" secondAttribute="trailing" constant="16" id="Cec-Hn-mfk"/>
+                            <constraint firstItem="t6D-ha-390" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="16" id="Tgq-6q-09o"/>
+                            <constraint firstItem="Tet-Gz-t7I" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="16" id="TwQ-Hy-Wzt"/>
+                            <constraint firstItem="t6D-ha-390" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="16" id="fVR-Mu-MVw"/>
+                            <constraint firstItem="hSC-sa-EVg" firstAttribute="top" secondItem="Tet-Gz-t7I" secondAttribute="bottom" constant="32" id="jn5-pP-hym"/>
+                            <constraint firstItem="nGX-Jc-BPg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="16" id="kbP-Cc-CIv"/>
+                            <constraint firstItem="hSC-sa-EVg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="16" id="rzh-Uz-EgM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="t6D-ha-390" secondAttribute="trailing" constant="16" id="xSA-DS-gY1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Tet-Gz-t7I" secondAttribute="trailing" constant="16" id="zo0-SS-FIa"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="destinationTxt" destination="010-tm-UrC" id="Qqb-eQ-UlJ"/>
+                        <outlet property="messageTxt" destination="t6D-ha-390" id="Inx-WX-hdt"/>
+                        <outlet property="outputLbl" destination="hSC-sa-EVg" id="xWE-oa-rjd"/>
+                        <outlet property="sourceTxt" destination="26A-N3-41w" id="WVE-9p-TdI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-52" y="-36"/>
         </scene>
     </scenes>
 </document>
