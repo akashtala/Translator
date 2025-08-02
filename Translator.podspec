@@ -8,26 +8,22 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Translator'
-  s.version          = '0.0.1'
-  s.summary          = 'A short description of Translator.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.version          = '1.0.0'
+  s.summary          = 'A lightweight Swift utility for translating text to English using async/await and modern concurrency patterns.'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  Translator is a developer-friendly, Swift-based translation utility that enables seamless conversion of any source text to English. Built with Swift concurrency and async/await architecture, it offers clean syntax, high performance, and easy integration into modern iOS/macOS apps.
+
+  Ideal for localisation workflows, AI-driven text preprocessing, or simple utility extensions, Translator encapsulates best practices in error handling and asynchronous API consumption. Whether you're building a multilingual app or just need dynamic English translations, this utility ensures efficiency without added overhead.
                        DESC
 
-  s.homepage         = 'https://github.com/talaakash/Translator'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/akashtala/Translator'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Akash Tala' => 'akashpatel54668@gmail.com' }
   s.source           = { :git => 'https://github.com/akashtala/Translator.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '15.0'
+  s.swift_version = '5.0'
 
   s.source_files = 'Source/**/*'
   
