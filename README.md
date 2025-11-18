@@ -50,15 +50,17 @@ do {
 }
 ```
 
-### 🔹 Async/Await
+### 🔹 Traditional Completion Handler
 
 ```swift
 let translator = Translator()
-do {
-    let result = try await translator.translateToEnglish("Bonjour")
-    print(result.translatedText)
-} catch {
-    print("❌ Error: \(error)")
+translator.translateToEnglish("Bonjour") { result in
+    switch result {
+    case .success(let translation):
+        print("Translation: \(translation.translatedText)")
+    case .failure(let error):
+        print("Error: \(error.localizedDescription)")
+    }
 }
 ```
 
